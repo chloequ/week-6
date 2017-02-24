@@ -123,12 +123,50 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
+var dataset = "https://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+  switch(feature.properties.COLLDAY){
+    case 'MON': return {
+      fillColor: '#f44242',
+      color: '#f44242',
+      fillOpacity: 0.5
+    };
+    case 'TUE': return {
+        fillColor: '#f47141',
+        color: '#f47141',
+        fillOpacity:0.5
+      };
+    case 'WED': return {
+      fillColor: '#f4a341',
+      color:'#f4a341',
+      fillOpacity:0.5
+    };
+    case 'THU':return {
+      fillColor: '#f4cd41',
+      color:'#f4cd41',
+      fillOpacity:0.5
+    };
+    case 'FRI':return {
+      fillColor: '#ebf441',
+      color:'#ebf441',
+      fillOpacity:0.5
+    };
+    case 'SAT': return {
+      fillColor: '#cdf441',
+      color:'#cdf441',
+      fillOpacity:0.5
+    };
+    case 'SUN': return {
+      fillColor: '#b5f441',
+      color:'#b5f441',
+      fillOpacity:0.5
+    };
+  }
 };
+
+
 
 var showResults = function() {
   /* =====================
@@ -151,13 +189,56 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
+    switch(layer.feature.properties.COLLDAY){
+      case 'MON':
+        $('#results > p.main > span').text('Monday');
+        $('#results > p:nth-child(3) > span').text('Monday');
+        $('#results > h1').text('Monday');
+        break;
+      case 'TUE':
+        $('#results > p.main > span').text('Tuesday');
+        $('#results > p:nth-child(3) > span').text('Tuesday');
+        $('#results > h1').text('Tuesday');
+        break;
+      case 'WED':
+        $('#results > p.main > span').text('Wednesday');
+        $('#results > p:nth-child(3) > span').text('Wednesday');
+        $('#results > h1').text('Wednesday');
+        break;
+      case 'THU':
+        $('#results > p.main > span').text('Thursday');
+        $('#results > p:nth-child(3) > span').text('Thursday');
+        $('#results > h1').text('Thursday');
+        break;
+      case 'FRI':
+        $('#results > p.main > span').text('Friday');
+        $('#results > p:nth-child(3) > span').text('Friday');
+        $('#results > h1').text('Friday');
+        break;
+      case 'SAT':
+        $('#results > p.main > span').text('Saturday');
+        $('#results > p:nth-child(3) > span').text('Saturday');
+        $('#results > h1').text('Saturday');
+        break;
+      case 'SUN':
+        $('#results > p.main > span').text('Sunday');
+        $('#results > p:nth-child(3) > span').text('Sunday');
+        $('#results > h1').text('Sunday');
+        break;
+    }
+    // $('#results > p.main > span').text(layer.feature.properties.COLLDAY);
     console.log(layer.feature);
     showResults();
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+  if (feature.properties.COLLDAY === ' '){
+    return false;
+  }
+  else {
+    return true;
+  }
 };
 
 $(document).ready(function() {
